@@ -1,0 +1,53 @@
+Problem statement:Given an integer n, count the total number of digit 1 appearing in all non-negative integers less than or equal to n.
+import java.util.Scanner;
+
+public class CountDigitOne {
+
+    public int countDigitOne(int n) {
+        int count = 0;
+
+        for (long i = 1; i <= n; i *= 10) {
+            long divider = i * 10;
+            count += (n / divider) * i + Math.min(Math.max(n % divider - i + 1, 0), i);
+        }
+
+        return count;
+    }
+
+    public static void main(String[] args) {
+        CountDigitOne solution = new CountDigitOne();
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("n: ");
+        int n = scanner.nextInt();
+
+        int result = solution.countDigitOne(n);
+        System.out.println(  result);
+    }
+}
+Logic and Algorithm:
+Initialization:
+
+The countDigitOne method initializes a variable count to 0 to keep track of the total number of occurrences of digit 1.
+Loop through Places:
+
+It uses a loop with a variable i starting from 1 and multiplying by 10 in each iteration. This loop iterates through each place (units, tens, hundreds, etc.) in the numbers.
+Calculate Occurrences for Each Place:
+
+For each place, it calculates the number of occurrences of digit 1 at that place for all numbers from 1 to n.
+It uses the formula: (n / divider) * i + Math.min(Math.max(n % divider - i + 1, 0), i).
+(n / divider) calculates the number of full repetitions of the pattern (1, 11, 21, ..., 91) in the current place.
+Math.min(Math.max(n % divider - i + 1, 0), i) calculates the remaining occurrences within the current place, ensuring it doesn't go below 0 and doesn't exceed i.
+The result is added to the count.
+Update Loop Variable:
+
+The loop variable i is multiplied by 10 in each iteration, which effectively moves to the next place in the numbers.
+Result:
+
+The final result is the total count of digit 1 occurrences in all places.
+User Input and Output:
+
+In the main method, the program prompts the user to enter the number n.
+It calls the countDigitOne method with the input n.
+It prints the total number of digit 1 occurrences in all non-negative integers less than or equal to n.
+Overall, the algorithm efficiently calculates the occurrences of digit 1 at each place for all numbers from 1 to n, and then sums up these occurrences to get the total count. The use of the loop with a multiplier allows for an iterative approach through each place in the numbers.
